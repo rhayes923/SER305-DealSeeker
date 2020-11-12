@@ -12,7 +12,7 @@ public class Main implements Runnable {
 	}
 	
 	public static int convertToMilli(int num) {
-		return num;
+		return num*60000;
 	}
 	
 	public static void startSearch() {
@@ -30,7 +30,8 @@ public class Main implements Runnable {
 					currIndex++;
 				}
 			} else {
-				currIndex = 0;
+				System.out.println("Too many items!");
+				return;
 			}			
 		}
 		System.out.println("Enter the amount of time in minutes that you want to wait in between searches");
