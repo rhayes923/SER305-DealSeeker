@@ -57,15 +57,24 @@ public class Main implements Runnable {
 			System.out.println("Waiting for " + timeframe/60000 + " minute(s)...");
 			Thread.sleep(timeframe);
 			System.out.println("Time is up, finding deals for: ");
+			
+			String resultText = "<html>Found deals for ";
+			String resultDeals = "<html>";
 			for (int i = 0; i < keywords.length; i++) {
 				if (keywords[i] != null) {
-					System.out.println(keywords[i] + " ");
+					resultText += (keywords[i] + "");
+					if (i < keywords.length - 1) {
+						resultText += ", ";
+					} else {
+						resultText += " ";
+					}
+					resultDeals += "Deal for " + keywords[i] + " here<br>";
 				}
 			}
-			//Print results in JFrame
-			System.out.println();
-			System.out.println("DISPLAY SEARCH RESULTS HERE");
-			System.out.println();
+			resultText += "on www.dealsea.com<br>";
+			resultDeals += "</html>";
+			
+			new Display(900, 600, resultText + resultDeals);
 			
 			response();
 
