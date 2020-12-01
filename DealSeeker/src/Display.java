@@ -13,7 +13,9 @@ public class Display extends JFrame {
 		panel.add(label);
 		add(panel);
 		setSize(width, height);
+		pack();
 		setResizable(true);
 		setVisible(true);
+
 	}
 }

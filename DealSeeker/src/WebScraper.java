@@ -11,17 +11,6 @@ public class WebScraper
 	{
 		String urlPrefix = "https://dealsea.com/search?q=";
 		String urlSufix = "&search_mode=Deals";
-		String mid = "";
-		
-		//Remove all problem characters/ replace spaces with +
-		for(int i = 0; i < s.length(); i++)
-		{
-			if(Character.isWhitespace(s.charAt(i)))
-				mid += "+";
-			else if(Character.isLetter(s.charAt(i)) || Character.isDigit(s.charAt(i)))
-				mid += s.charAt(i);
-		}
-		
 		return scrapeWeb(urlPrefix + s + urlSufix, s);
 		
 	}
@@ -29,7 +18,6 @@ public class WebScraper
 	//Pull deals from webpage
 	private static LinkedList<String> scrapeWeb(String url, String key)
 	{
-		//String[] deals = new String[10];
 		LinkedList<String> deals = new LinkedList<String>();
 		
 		try
@@ -66,8 +54,5 @@ public class WebScraper
 		
 		return deals;
 	}
-
+	
 }
-
-//select()
-//getElementsByTag()
