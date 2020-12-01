@@ -2,11 +2,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.LinkedList;
+
 public class WebScraper 
 {
-
 	//Make a static call to this method
-	public static String[] findThisDeal(String s)
+	public static LinkedList<String> findThisDeal(String s)
 	{
 		String urlPrefix = "https://dealsea.com/search?q=";
 		String urlSufix = "&search_mode=Deals";
@@ -21,14 +22,15 @@ public class WebScraper
 				mid += s.charAt(i);
 		}
 		
-		return scrapeWeb(urlPrefix + s + urlSufix);
+		return scrapeWeb(urlPrefix + s + urlSufix, s);
 		
 	}
 	
 	//Pull deals from webpage
-	private static String[] scrapeWeb(String url)
+	private static LinkedList<String> scrapeWeb(String url, String key)
 	{
-		String[] deals = new String[3];
+		//String[] deals = new String[10];
+		LinkedList<String> deals = new LinkedList<String>();
 		
 		try
 		{
@@ -39,7 +41,7 @@ public class WebScraper
 			//Find all deals
 			for(Element e : doc.select(".dealcontent"))
 			{
-				if(i >= 3) break;//Return maximum of three deals
+				if(i >= 10) break;//Return maximum of three deals
 				
 				Element span = null;
 				
@@ -49,9 +51,11 @@ public class WebScraper
 				if(span == null || !span.hasClass("colr_red"))//If not expired, add to list
 				{
 					Element strong = e.selectFirst("strong");
-					deals[i] = strong.getElementsByTag("a").text();
-					System.out.println(deals[i]);
-					i++;
+					if (strong.getElementsByTag("a").text().toLowerCase().contains(key.toLowerCase())) 
+					{
+						deals.add(i, strong.getElementsByTag("a").text());
+						i++;
+					}
 				}
 			}
 		}
